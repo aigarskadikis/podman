@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  pg17ts2181:
+    image: timescale/timescaledb:2.18.1-pg17
+    container_name: pg17ts2181
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_DB: dummy_db
+    ports:
+      - "7417:5432"
+    volumes:
+      - /home/user/postgresql/17:/var/lib/postgresql/data
+    networks:
+      podnet:
+        ipv4_address: 10.88.0.74
+    tty: true
+    restart: unless-stopped
+networks:
+  podnet:
+    name: podman
+    external: true
+
