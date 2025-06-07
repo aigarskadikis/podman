@@ -34,11 +34,53 @@ services:
       ZBX_STARTSNMPPOLLERS: '0'
       ZBX_STARTTRAPPERS: '2'
       ZBX_STATSALLOWEDIP: second.ext
+
+      ZBX_STARTPINGERS: '0'
+
     ports:
       - "17251:10051"
     networks:
       podnet:
         ipv4_address: 10.88.72.72
+    tty: true
+    restart: unless-stopped
+
+
+  z72prx.do:
+    image: zabbix/zabbix-proxy-sqlite3:7.2.7-alpine
+    container_name: z72prx.do
+    environment:
+      ZBX_PROXYMODE: '1'
+      TZ: Europe/Riga
+      ZBX_CACHESIZE: 256M
+      ZBX_SERVER_HOST: 10.88.72.72
+      ZBX_STARTAGENTPOLLERS: '0'
+      ZBX_STARTBROWSERPOLLERS: '0'
+      ZBX_STARTDBSYNCERS: '1'
+      ZBX_STARTDISCOVERERS: '0'
+      ZBX_STARTODBCPOLLERS: '0'
+      ZBX_STARTIPMIPOLLERS: '0'
+      ZBX_STARTHISTORYPOLLERS: '0'
+      ZBX_STARTHTTPAGENTPOLLERS: '0'
+      ZBX_STARTHTTPPOLLERS: '0'
+
+      ZBX_STARTPINGERS: '0'
+
+
+      ZBX_STARTPOLLERS: '0'
+      ZBX_STARTJAVAPOLLERS: '0'
+      ZBX_STARTPOLLERSUNREACHABLE: '0'
+
+      ZBX_STARTPREPROCESSORS: '1'
+      ZBX_STARTSNMPPOLLERS: '0'
+      ZBX_STARTTRAPPERS: '2'
+      ZBX_STATSALLOWEDIP: second.ext
+
+    ports:
+      - "27251:10051"
+    networks:
+      podnet:
+        ipv4_address: 10.88.172.172
     tty: true
     restart: unless-stopped
 
