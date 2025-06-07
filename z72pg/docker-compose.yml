@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  z72pg:
+    image: zabbix/zabbix-server-pgsql:7.2.7-alpine
+    container_name: z72pg
+    environment:
+      DB_SERVER_HOST: pg16.ext
+      DB_SERVER_PORT: '7416'
+      POSTGRES_DB: z72
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_USER: zabbix
+      TZ: Europe/Riga
+      ZBX_ALLOWUNSUPPORTEDDBVERSIONS: '1'
+      ZBX_CACHESIZE: 256M
+      ZBX_STARTALERTERS: '1'
+      ZBX_STARTDBSYNCERS: '1'
+      ZBX_STARTDISCOVERERS: '0'
+      ZBX_STARTHISTORYPOLLERS: '1'
+      ZBX_STARTLLDPROCESSORS: '1'
+      ZBX_STARTPOLLERS: '1'
+      ZBX_STARTPREPROCESSORS: '1'
+      ZBX_STARTPROXYPOLLERS: '1'
+      ZBX_STARTTRAPPERS: '2'
+      ZBX_STATSALLOWEDIP: second.ext
+    ports:
+      - "17251:10051"
+    networks:
+      podnet:
+        ipv4_address: 10.88.72.72
+    tty: true
+    restart: unless-stopped
+
+
+networks:
+  podnet:
+    name: podman
+    external: true
+
