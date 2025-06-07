@@ -42,7 +42,7 @@ services:
       ZBX_STATSALLOWEDIP: 127.0.0.1
     networks:
       podnet:
-        ipv4_address: 10.88.0.75
+        ipv4_address: 10.88.70.70
     tty: true
     restart: unless-stopped
 
@@ -75,6 +75,25 @@ services:
     tty: true
     restart: unless-stopped
 
+  z74web_bundle:
+    image: zabbix/zabbix-web-nginx-pgsql:trunk-alpine
+    container_name: z74web.bundle
+    environment:
+      DB_SERVER_HOST: 10.88.0.74
+      DB_SERVER_PORT: '5432'
+      POSTGRES_DB: z74db
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_USER: zabbix
+      ZBX_SERVER_HOST: 10.88.74.74
+      ZBX_SERVER_PORT: 10051
+      TZ: Europe/Riga
+    ports:
+      - "8074:8080"
+    networks:
+      podnet:
+        ipv4_address: 10.88.74.174
+    tty: true
+    restart: unless-stopped
 
 networks:
   podnet:
