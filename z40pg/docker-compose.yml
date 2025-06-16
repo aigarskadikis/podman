@@ -1,0 +1,92 @@
+version: "3.8"
+
+services:
+  z40pg:
+    image: zabbix/zabbix-server-pgsql:4.0.50-alpine
+    container_name: z40pg
+    environment:
+      DB_SERVER_HOST: pg13.ext
+      DB_SERVER_PORT: '7413'
+      POSTGRES_DB: z40
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_USER: zabbix
+      TZ: Europe/Riga
+      ZBX_ALLOWUNSUPPORTEDDBVERSIONS: '1'
+      ZBX_CACHESIZE: 256M
+      ZBX_STARTAGENTPOLLERS: '0'
+      ZBX_STARTALERTERS: '1'
+      ZBX_STARTBROWSERPOLLERS: '0'
+      ZBX_STARTDBSYNCERS: '1'
+      ZBX_STARTDISCOVERERS: '0'
+      ZBX_STARTODBCPOLLERS: '0'
+      ZBX_STARTIPMIPOLLERS: '0'
+      ZBX_STARTHISTORYPOLLERS: '1'
+      ZBX_STARTHTTPAGENTPOLLERS: '0'
+      ZBX_STARTHTTPPOLLERS: '0'
+      ZBX_STARTLLDPROCESSORS: '1'
+
+      ZBX_STARTPOLLERS: '0'
+      ZBX_STARTJAVAPOLLERS: '0'
+      ZBX_STARTPOLLERSUNREACHABLE: '0'
+
+      ZBX_STARTPREPROCESSORS: '1'
+      ZBX_STARTPROXYPOLLERS: '1'
+      ZBX_STARTSNMPPOLLERS: '0'
+      ZBX_STARTTRAPPERS: '2'
+      ZBX_STATSALLOWEDIP: second.ext
+
+      ZBX_STARTPINGERS: '0'
+
+    ports:
+      - "14051:10051"
+    networks:
+      podnet:
+        ipv4_address: 10.88.40.40
+    tty: true
+    restart: unless-stopped
+
+
+  z40prx.do:
+    image: zabbix/zabbix-proxy-sqlite3:4.0.50-alpine
+    container_name: z40prx.do
+    environment:
+      ZBX_PROXYMODE: '1'
+      TZ: Europe/Riga
+      ZBX_CACHESIZE: 256M
+      ZBX_SERVER_HOST: 10.88.40.40
+      ZBX_STARTAGENTPOLLERS: '0'
+      ZBX_STARTBROWSERPOLLERS: '0'
+      ZBX_STARTDBSYNCERS: '1'
+      ZBX_STARTDISCOVERERS: '0'
+      ZBX_STARTODBCPOLLERS: '0'
+      ZBX_STARTIPMIPOLLERS: '0'
+      ZBX_STARTHISTORYPOLLERS: '0'
+      ZBX_STARTHTTPAGENTPOLLERS: '0'
+      ZBX_STARTHTTPPOLLERS: '0'
+
+      ZBX_STARTPINGERS: '0'
+
+
+      ZBX_STARTPOLLERS: '0'
+      ZBX_STARTJAVAPOLLERS: '0'
+      ZBX_STARTPOLLERSUNREACHABLE: '0'
+
+      ZBX_STARTPREPROCESSORS: '1'
+      ZBX_STARTSNMPPOLLERS: '0'
+      ZBX_STARTTRAPPERS: '2'
+      ZBX_STATSALLOWEDIP: second.ext
+
+    ports:
+      - "24051:10051"
+    networks:
+      podnet:
+        ipv4_address: 10.88.140.140
+    tty: true
+    restart: unless-stopped
+
+
+networks:
+  podnet:
+    name: podman
+    external: true
+
