@@ -41,7 +41,7 @@ services:
       - "15051:10051"
     networks:
       podnet:
-        ipv4_address: 10.88.50.50
+        ipv4_address: 10.88.2.50
     tty: true
     restart: unless-stopped
 
@@ -53,7 +53,7 @@ services:
       ZBX_PROXYMODE: '1'
       TZ: Europe/Riga
       ZBX_CACHESIZE: 256M
-      ZBX_SERVER_HOST: 10.88.50.50
+      ZBX_SERVER_HOST: 10.88.2.50
       ZBX_STARTAGENTPOLLERS: '0'
       ZBX_STARTBROWSERPOLLERS: '0'
       ZBX_STARTDBSYNCERS: '1'
@@ -80,7 +80,7 @@ services:
       - "25051:10051"
     networks:
       podnet:
-        ipv4_address: 10.88.150.150
+        ipv4_address: 10.88.7.50
     tty: true
     restart: unless-stopped
 
