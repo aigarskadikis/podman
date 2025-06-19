@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+
+  odbc.do:
+    image: aigarskadikis/zabbix-proxy-sqlite3:7.0.13-odbc
+    container_name: odbc.do
+    environment:
+      ZBX_HOSTNAME: 'odbc'
+      ZBX_CACHESIZE: '256M'
+      ZBX_PROXYMODE: '1'
+      ZBX_PROXYOFFLINEBUFFER: '100'
+      ZBX_ENABLEREMOTECOMMANDS: '1'
+      ZBX_STARTDBSYNCERS: '1'
+      ZBX_STARTTRAPPERS: '2'
+      ZBX_STARTPOLLERS: '1'
+      ZBX_STARTODBCPOLLERS: '1'
+      ZBX_STARTPINGERS: '0'
+      ZBX_STARTSNMPPOLLERS: '0'
+      ZBX_STARTBROWSERPOLLERS: '0'
+      ZBX_STARTAGENTPOLLERS: '0'
+      ZBX_STARTPREPROCESSORS: '1'
+      ZBX_STARTDISCOVERERS: '1'
+      ZBX_STATSALLOWEDIP: 'second.ext'
+      TZ: 'Europe/Riga'
+      ZBX_SERVER_HOST: 'zs.ext'
+
+    ports:
+      - "37051:10051"
+    networks:
+      podnet:
+        ipv4_address: 10.88.17.70
+    tty: true
+    restart: unless-stopped
+
+
+networks:
+  podnet:
+    name: podman
+    external: true
+
