@@ -1,0 +1,44 @@
+[mysqld]
+# Memory
+innodb_buffer_pool_size = 128M
+innodb_buffer_pool_instances = 1
+innodb_log_buffer_size = 4M
+
+# InnoDB logs (small footprint)
+innodb_log_file_size = 16M
+innodb_log_files_in_group = 2
+
+# Reduce writes (durability is relaxed)
+innodb_flush_log_at_trx_commit = 0
+innodb_doublewrite = 0
+innodb_checksum_algorithm = NONE
+
+# Avoid swap thrashing
+performance_schema = OFF
+table_open_cache = 64
+table_open_cache_instances = 1
+max_connections = 20
+
+# Flush tuning (reduce background flushing pressure)
+innodb_io_capacity = 100
+innodb_io_capacity_max = 200
+innodb_adaptive_flushing = 1
+
+# Reduce background threads
+innodb_read_io_threads = 2
+innodb_write_io_threads = 2
+
+# Disable binary logging if not needed
+log_bin = OFF
+sync_binlog = 0
+
+# Other safety
+open_files_limit = 256
+query_cache_size = 0
+query_cache_type = 0
+
+# Avoid metadata locks issues on tiny hardware
+metadata_locks_hash_instances = 1
+
+# Extra: If you trust the hardware and filesystem
+innodb_flush_method = O_DIRECT

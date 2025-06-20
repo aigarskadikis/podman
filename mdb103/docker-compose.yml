@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  mdb103:
+    image: mariadb:10.3.39
+    container_name: mdb103
+
+    environment:
+      MYSQL_ROOT_PASSWORD: 'zabbix'
+
+    ports:
+      - "1103:3306"
+
+    volumes:
+      - /root/podman/mariadb.conf.d/10.3.39:/etc/mysql/conf.d
+      - /root/mariadb/datadir/10.3:/var/lib/mysql:Z
+
+    networks:
+      podnet:
+        ipv4_address: 10.88.10.3
+
+    tty: true
+
+    restart: unless-stopped
+
+
+networks:
+  podnet:
+    name: podman
+    external: true
+
