@@ -15,7 +15,7 @@ innodb_checksum_algorithm = NONE
 
 # Avoid swap thrashing
 performance_schema = OFF
-table_open_cache = 32
+table_open_cache = 64
 table_open_cache_instances = 1
 max_connections = 20
 
@@ -42,16 +42,3 @@ metadata_locks_hash_instances = 1
 
 # Extra: If you trust the hardware and filesystem
 innodb_flush_method = O_DIRECT
-
-# Tune Adaptive Hash Index (optional)
-innodb_adaptive_hash_index = OFF
-
-# In extremely light load systems, reducing allowed threads helps
-innodb_thread_concurrency = 2
-
-# Reduce InnoDB background threads
-innodb_read_io_threads = 1
-innodb_write_io_threads = 1
-innodb_page_cleaners = 1
-innodb_purge_threads = 1
-
