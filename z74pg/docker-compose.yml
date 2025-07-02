@@ -1,13 +1,13 @@
 version: "3.8"
 
 services:
-  z75pg:
-    image: zabbix/zabbix-server-pgsql:trunk-alpine
-    container_name: z75pg
+  z74pg:
+    image: zabbix/zabbix-server-pgsql:7.4.0-alpine
+    container_name: z74pg
     environment:
       DB_SERVER_HOST: pg16.ext
       DB_SERVER_PORT: '7416'
-      POSTGRES_DB: z75
+      POSTGRES_DB: z74
       POSTGRES_PASSWORD: zabbix
       POSTGRES_USER: zabbix
       TZ: Europe/Riga
@@ -38,22 +38,22 @@ services:
       ZBX_STARTPINGERS: '0'
 
     ports:
-      - "17551:10051"
+      - "17451:10051"
     networks:
       podnet:
-        ipv4_address: 10.88.2.75
+        ipv4_address: 10.88.2.74
     tty: true
     restart: unless-stopped
 
 
-  z75prx.do:
-    image: zabbix/zabbix-proxy-sqlite3:trunk-alpine
-    container_name: z75prx.do
+  z74prx.do:
+    image: zabbix/zabbix-proxy-sqlite3:7.4.0-alpine
+    container_name: z74prx.do
     environment:
       ZBX_PROXYMODE: '1'
       TZ: Europe/Riga
       ZBX_CACHESIZE: 256M
-      ZBX_SERVER_HOST: 10.88.2.75
+      ZBX_SERVER_HOST: 10.88.2.74
       ZBX_STARTAGENTPOLLERS: '0'
       ZBX_STARTBROWSERPOLLERS: '0'
       ZBX_STARTDBSYNCERS: '1'
@@ -77,10 +77,10 @@ services:
       ZBX_STATSALLOWEDIP: second.ext
 
     ports:
-      - "27551:10051"
+      - "27451:10051"
     networks:
       podnet:
-        ipv4_address: 10.88.7.175
+        ipv4_address: 10.88.7.74
     tty: true
     restart: unless-stopped
 
