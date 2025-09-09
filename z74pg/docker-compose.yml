@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   z74pg:
-    image: zabbix/zabbix-server-pgsql:7.4.0-alpine
+    image: zabbix/zabbix-server-pgsql:7.4.2-alpine
     container_name: z74pg
     environment:
       DB_SERVER_HOST: pg16.ext
@@ -47,7 +47,7 @@ services:
 
 
   z74prx.do:
-    image: zabbix/zabbix-proxy-sqlite3:7.4.0-alpine
+    image: zabbix/zabbix-proxy-sqlite3:7.4.2-alpine
     container_name: z74prx.do
     environment:
       ZBX_PROXYMODE: '1'
